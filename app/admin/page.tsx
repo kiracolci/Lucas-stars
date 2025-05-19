@@ -8,8 +8,8 @@ import Link from 'next/link';
 export default function AdminPage() {
   const images = useQuery(api.lucas.getImages);
   const addImage = useMutation(api.lucas.addImage);
-  const deleteImage = useMutation(api.lucas.deleteImage);
-
+const deleteImage = useMutation(api.lucas.deleteImage);
+  
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -20,7 +20,7 @@ export default function AdminPage() {
       alert('Please select a file and enter a title.');
       return;
     }
-
+ 
     const form = new FormData();
     form.append('title', title);
     form.append('description', description);
@@ -53,8 +53,8 @@ export default function AdminPage() {
   const confirmDelete = (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this image?');
     if (confirmed) {
-        deleteImage({ id: id as string });
-    }
+        const confirmDelete = (id: string) => {
+        }
   };
 
   return (
@@ -171,4 +171,5 @@ export default function AdminPage() {
 </div>
     </div>
   );
+}
 }

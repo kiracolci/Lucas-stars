@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Masonry from 'react-masonry-css';
 import { useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
 
@@ -32,11 +31,7 @@ const toggleInfo = () => setShowInfo(!showInfo);
     }
   };
 
-  const breakpoints = {
-    default: 3,
-    1024: 2,
-    640: 1,
-  };
+
 
   return (
     <div className="bg-[#02142b] text-white scroll-smooth">
