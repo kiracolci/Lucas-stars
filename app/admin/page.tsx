@@ -6,8 +6,9 @@ import { api } from '../../convex/_generated/api';
 import Link from 'next/link';
 
 export default function AdminPage() {
-  const images = useQuery(api.lucas.getImages);
-  const addImage = useMutation(api.lucas.addImage);
+    const images = useQuery(api.lucas.getImages);
+    console.log("Fetched images from Convex:", images);
+    const addImage = useMutation(api.lucas.addImage);
 const deleteImage = useMutation(api.lucas.deleteImage);
   
   const [title, setTitle] = useState('');
