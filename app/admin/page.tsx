@@ -52,7 +52,7 @@ const deleteImage = useMutation(api.lucas.deleteImage);
     setDescription('');
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-  
+
   const confirmDelete = (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this image?');
     if (confirmed) {
@@ -175,5 +175,4 @@ const deleteImage = useMutation(api.lucas.deleteImage);
 </div>
     </div>
   );
-}
 }
