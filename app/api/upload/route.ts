@@ -8,6 +8,12 @@ export async function POST(req: Request) {
   try {
     const formData = await req.formData();
 
+    console.log('🧾 Incoming form data:');
+for (const [key, value] of formData.entries()) {
+  console.log(`${key}:`, value);
+}
+
+
     const file = formData.get('file');
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
