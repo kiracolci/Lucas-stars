@@ -53,7 +53,7 @@ export default function AdminPage() {
   const confirmDelete = (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this image?');
     if (confirmed) {
-        deleteImage({ id: id as any });
+        deleteImage({ id: id as string });
     }
   };
 
