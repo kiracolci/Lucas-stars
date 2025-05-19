@@ -1,4 +1,3 @@
-// Force Node.js runtime (critical for file uploads)
 export const runtime = 'nodejs';
 
 import { NextResponse } from 'next/server';
@@ -14,21 +13,26 @@ export async function POST(req: Request) {
     const description = formData.get('description') as string;
 
     if (!(file instanceof File)) {
-      return NextResponse.json({ error: 'Invalid file' }, { status: 400 });
+      console.error("❌ 'file' is not a File instance:", file);
+      return NextResponse.json({ error: 'Invalid file format' }, { status: 400 });
     }
 
     if (!title) {
+      console.error("❌ Missing title field");
       return NextResponse.json({ error: 'Missing title' }, { status: 400 });
     }
 
-    // Convert the File to a Buffer so we can upload it
+    // Convert File to Buffer
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    // Upload to Vercel Blob
     const blob = await put(`lucas-${randomUUID()}`, buffer, {
       access: 'public',
       contentType: file.type,
     });
+
+    console.log("✅ Upload successful:", blob.url);
 
     return NextResponse.json({
       url: blob.url,
@@ -36,7 +40,7 @@ export async function POST(req: Request) {
       description,
     });
   } catch (err) {
-    console.error('UPLOAD ERROR:', err);
+    console.error('🔥 Upload failed with error:', err);
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
   }
 }
