@@ -9,16 +9,25 @@ export async function POST(req: Request) {
   try {
     const formData = await req.formData();
 
-    const file = formData.get('file') as File;
+    const file = formData.get('file');
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
 
-    if (!file || !title) {
-      return NextResponse.json({ error: 'Missing file or title' }, { status: 400 });
+    if (!(file instanceof File)) {
+      return NextResponse.json({ error: 'Invalid file' }, { status: 400 });
     }
 
-    const blob = await put(`lucas-${randomUUID()}`, file, {
+    if (!title) {
+      return NextResponse.json({ error: 'Missing title' }, { status: 400 });
+    }
+
+    // Convert the File to a Buffer so we can upload it
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const blob = await put(`lucas-${randomUUID()}`, buffer, {
       access: 'public',
+      contentType: file.type,
     });
 
     return NextResponse.json({
