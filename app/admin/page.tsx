@@ -4,6 +4,8 @@ import { useState, useRef } from 'react';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import Link from 'next/link';
+import type { Id } from '../../convex/_generated/dataModel';
+
 
 export default function AdminPage() {
     const images = useQuery(api.lucas.getImages);
@@ -50,13 +52,14 @@ const deleteImage = useMutation(api.lucas.deleteImage);
     setDescription('');
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-
+  
   const confirmDelete = (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this image?');
     if (confirmed) {
-        const confirmDelete = (id: string) => {
-        }
+      deleteImage({ id: id as Id<"images"> });
+    }
   };
+  
 
   return (
     <div className="relative min-h-screen bg-[#02142b] text-[#f5f5dc] font-mono">
